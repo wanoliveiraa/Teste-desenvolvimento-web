@@ -13,7 +13,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,13 @@ class LoginRequest extends FormRequest
      */
     public function rules()
     {
+        //poderia ua mensagem personalizada em pt-br
         return [
-            //
+            'email' => 'required|email|string|exists:users,email',
+            'password' => [
+                'required',
+            ],
+            'remember' => 'boolean'
         ];
     }
 }

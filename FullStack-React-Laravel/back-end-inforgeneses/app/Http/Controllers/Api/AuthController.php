@@ -53,20 +53,20 @@ class AuthController extends Controller
 
     public function logout(Request $request){
         // Verifica se o usuário está autenticado
-        if (!$request->user()) {
-            return response(['message' => 'Usuário não autenticado.'], 401);
-        }
-    
-        // Obtém o token de acesso atual do usuário
-        $currentToken = $request->user()->currentAccessToken();
-    
-        // Verifica se o token existe
-        if ($currentToken) {
-            // Revoga o token de acesso atual
-            $currentToken->revoke();
-            return response('', 204);
+        if (auth()->check()) {
+            // Obtém o token de acesso atual do usuário
+            $currentToken = $request->user()->currentAccessToken();
+        
+            // Verifica se o token existe
+            if ($currentToken) {
+                // Revoga o token de acesso atual
+                $currentToken->delete();
+                return response('', 204);
+            } else {
+                return response(['message' => 'Nenhum token de acesso encontrado.'], 404);
+            }
         } else {
-            return response(['message' => 'Nenhum token de acesso encontrado.'], 404);
+            return response(['message' => 'Usuário não autenticado.'], 401);
         }
     }
     

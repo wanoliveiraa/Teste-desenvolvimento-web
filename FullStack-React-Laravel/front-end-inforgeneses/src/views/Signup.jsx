@@ -26,6 +26,7 @@ export default function Signup() {
     }
     //enviando a requisão para singnup
     axiosClient.post('/signup', payload)
+   
       .then(({data}) => {
         // atualizando estado do usuário e token com os dados da resposta
         setUser(data.user)
@@ -44,7 +45,7 @@ export default function Signup() {
       <div className="form">
         <form onSubmit={onSubmit}>
         <h1 className='title'>Registo gratuito</h1>
-          {errors &&
+          {errors && // Verifica se a variável 'errors' não é falsa ou nula
             <div className="alert">
               {Object.keys(errors).map(key => (
                 <p key={key}>{errors[key][0]}</p>

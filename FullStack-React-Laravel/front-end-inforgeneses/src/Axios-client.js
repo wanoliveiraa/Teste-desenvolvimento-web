@@ -3,7 +3,7 @@ import axios from "axios"
 // Criação de cliente do Axios com configurações iniciais
 const axiosClient = axios.create({
      // Configuração da URL base da API usando uma variável de ambiente
-    baseURL : `${import.meta.env.VIT_API_BASE_URL}/api`
+    baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`
 })
 
 // interceptador de requisição: adiciona token de autorização ao cabeçalho

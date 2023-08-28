@@ -25,15 +25,16 @@ class SignupRequest extends FormRequest
      */
     public function rules()
     {
+        //poderia ua mensagem personalizada em pt-br
         return [
             'name' => ['required', 'string'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => [
                 'required', // A senha é obrigatoria
                 'confirmed', // A senha deve ser confirmada no react tem password_con
-                Password::min(4) // A senha deve ter pelo menos 4 caracter
-                    //->letters()   // Deve conter letras
-                    //->symbols()   // Deve conter símbolos
+                Password::min(4) // A senha deve ter pelo menos 4 cara
+                 //   ->letters()   // Deve conter letras
+                   // ->symbols()   // Deve conter símbolos
                     //->numbers()   // Deve conter números
             ]  
         ];
