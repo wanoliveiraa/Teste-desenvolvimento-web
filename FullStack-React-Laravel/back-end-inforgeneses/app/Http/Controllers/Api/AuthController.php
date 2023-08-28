@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\SignupRequest;
 use App\Models\User;
+use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -21,6 +24,7 @@ class AuthController extends Controller
                'message' => 'O email fornecido ou a senha estão incorrectos'
            ], 422);
        }
+        /** @var \App\Models\User $user */
        // pega o usuario autenticado
        $user = Auth::user();
 
@@ -47,15 +51,23 @@ class AuthController extends Controller
         return response(compact('user', 'token'));
     }
 
-    public function loginout(Request $request){
-        /** @var \App\Models\User $user */
-         // pega o usuario autenticado a partir do request
-         $user = $request->user();
-
-         // o token de acesso atual do usuario
-         $user->currentAccessToken()->delete();
- 
-         //retorna uma resposta vazia 
-         return response('', 204);
+    public function logout(Request $request){
+        // Verifica se o usuário está autenticado
+        if (!$request->user()) {
+            return response(['message' => 'Usuário não autenticado.'], 401);
+        }
+    
+        // Obtém o token de acesso atual do usuário
+        $currentToken = $request->user()->currentAccessToken();
+    
+        // Verifica se o token existe
+        if ($currentToken) {
+            // Revoga o token de acesso atual
+            $currentToken->revoke();
+            return response('', 204);
+        } else {
+            return response(['message' => 'Nenhum token de acesso encontrado.'], 404);
+        }
     }
+    
 }

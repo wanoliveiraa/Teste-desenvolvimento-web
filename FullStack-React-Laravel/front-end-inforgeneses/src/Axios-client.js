@@ -16,7 +16,7 @@ axiosClient.interceptors.request.use((config) =>{
 })
 
 // interceptador de resposta: lida com erros especificos
-axiosClient.interceptors.response.use((response) => {
+    axiosClient.interceptors.response.use((response) => {
       // manipula a resposta de sucesso
     return response
      // manipula erros de resposta
