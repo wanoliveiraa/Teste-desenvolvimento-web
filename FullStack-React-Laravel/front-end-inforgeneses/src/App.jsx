@@ -6,6 +6,7 @@ import Product from './views/Product';
 import NotFound from "./views/NotFound";
 import DefaultLayout from "./components/DefaultLayout";
 import GuestLayout from "./components/GuestLayout";
+import UserForm from "./views/UserFrom";
 
 const App = () => {
   return (
@@ -14,6 +15,8 @@ const App = () => {
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<Navigate to="/product" />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/product/new" element={<UserForm key={"userCreate"} />} />
+          <Route path="/product/:id" element={<UserForm key={"userUpdate"} />} />
         </Route>
         <Route path="/" element={<GuestLayout />}>
           <Route path="/login" element={<Login />} />

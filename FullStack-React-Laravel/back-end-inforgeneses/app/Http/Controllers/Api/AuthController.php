@@ -52,12 +52,12 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request){
-        // Verifica se o usuário está autenticado
+        // verifica se o usuario está autenticado
         if (auth()->check()) {
-            // Obtém o token de acesso atual do usuário
+            // Obtem o token de acesso atual do usuario
             $currentToken = $request->user()->currentAccessToken();
         
-            // Verifica se o token existe
+            // verifica se o token existe
             if ($currentToken) {
                 // Revoga o token de acesso atual
                 $currentToken->delete();
